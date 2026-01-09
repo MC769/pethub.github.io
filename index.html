@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETHUB</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pet: '#2B8A8C',
+                        hub: '#9DB668',
+                        dark: {
+                            bg: '#09090b', // zinc-950
+                            card: '#18181b', // zinc-900
+                            border: '#27272a', // zinc-800
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-zinc-100 overflow-x-hidden selection:bg-pet/30 selection:text-pet">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 w-full z-50 transition-all duration-300 py-4 bg-transparent">
+        <nav class="container mx-auto px-6 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="font-bold text-3xl tracking-tight hover:scale-105 transition-transform duration-200">
+                <span class="text-pet">PET</span><span class="text-hub">HUB</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-right space-x-8">
+                <a href="#" class="text-zinc-400 hover:text-pet font-medium transition-colors duration-200">Home</a>
+                <a href="#services" class="text-zinc-400 hover:text-pet font-medium transition-colors duration-200">Services</a>
+                <a href="#marketplace" class="text-zinc-400 hover:text-pet font-medium transition-colors duration-200">Marketplace</a>
+				<a href="#marketplace" class="text-zinc-400 hover:text-pet font-medium transition-colors duration-200">Track My Pet</a>
+                <a href="#contact" class="text-zinc-400 hover:text-pet font-medium transition-colors duration-200">Contact</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="login.html" class="text-zinc-400 hover:text-pet font-medium transition-colors">Log In</a>
+                <a href="#signup" class="px-6 py-2.5 bg-hub text-white rounded-full hover:bg-[#8ca358] shadow-md hover:shadow-lg hover:shadow-hub/20 transform hover:-translate-y-0.5 transition-all duration-200 font-medium">Sign Up</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-zinc-400 hover:bg-dark-card rounded-lg transition-colors">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-dark-card shadow-xl border-t border-dark-border">
+            <div class="px-6 py-6 space-y-4 flex flex-col">
+                <a href="#" class="text-lg text-zinc-400 hover:text-pet font-medium py-2 mobile-link">Home</a>
+                <a href="#services" class="text-lg text-zinc-400 hover:text-pet font-medium py-2 mobile-link">Services</a>
+                <a href="#marketplace" class="text-lg text-zinc-400 hover:text-pet font-medium py-2 mobile-link">Marketplace</a>
+				<a href="#marketplace" class="text-lg text-zinc-400 hover:text-pet font-medium py-2 mobile-link">Track My Pet</a>
+                <a href="#contact" class="text-lg text-zinc-400 hover:text-pet font-medium py-2 mobile-link">Contact</a>
+                <hr class="border-dark-border my-2" />
+                <a href="login.html" class="text-lg text-zinc-400 hover:text-pet font-medium py-2 mobile-link">Log In</a>
+                <a href="#signup" class="text-center px-6 py-3 bg-hub text-white rounded-full hover:bg-[#8ca358] font-medium shadow-md mobile-link">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden bg-dark-bg">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0" style="background-image: url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=2500&auto=format&fit=crop'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-zinc-950/90 backdrop-blur-sm"></div>
+        </div>
+
+        <div class="container mx-auto max-w-6xl relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <!-- Text Content -->
+            <div class="space-y-8 text-center md:text-left fade-in-section">
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight text-white">
+                    <span class="text-pet">PET</span><span class="text-hub">HUB</span>
+                </h1>
+                
+                <h2 class="text-2xl md:text-3xl font-medium text-zinc-300">
+                    Complete Veterinary Care at Your Fingertips
+                </h2>
+
+                <p class="text-lg text-zinc-400 max-w-xl mx-auto md:mx-0 leading-relaxed">
+                    Smart pet parenting starts here: connect, track, and shop - all at your fingertips
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                    <a href="#services" class="flex items-center justify-center px-8 py-4 bg-pet text-white rounded-full shadow-lg shadow-pet/20 hover:bg-[#247577] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer font-semibold">
+                        <span class="mr-2">Get My Slot</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+
+                    <a href="#join" class="flex items-center justify-center px-8 py-4 border-2 border-hub text-hub bg-transparent rounded-full shadow-md hover:bg-hub hover:text-white hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer font-semibold">
+                        <span>Track My Pet</span>
+                    </a>
+                </div>
+
+                <!-- Stats Counter -->
+                <div class="pt-8 flex items-center justify-center md:justify-start gap-4">
+                    <div class="bg-dark-card p-4 rounded-2xl shadow-xl border border-dark-border flex items-center gap-4">
+                        <div class="bg-red-500/10 p-3 rounded-full text-red-500">
+                            <i data-lucide="heart" class="w-8 h-8 fill-current"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-3xl font-bold text-white" id="counter">0+</div>
+                            <div class="text-sm text-zinc-400 font-medium">Successful Adoptions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="relative hidden md:block fade-in-section" style="transition-delay: 0.2s;">
+                <img src="pet.png" alt="Happy Dog" class="rounded-3xl shadow-2xl shadow-black/50 w-full object-cover h-[600px] ">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 bg-dark-bg">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Our Services</h2>
+                <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Comprehensive care solutions tailored for your beloved pets.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 fade-in-section">
+                <!-- Service 1 -->
+                <div class="group bg-dark-card p-8 rounded-2xl border border-dark-border hover:border-pet/50 hover:shadow-xl hover:shadow-pet/10 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="heart" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pet transition-colors">Pet Care</h3>
+                    <p class="text-zinc-400 leading-relaxed">Professional grooming, sitting, and walking services to keep your pet happy and healthy.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group bg-dark-card p-8 rounded-2xl border border-dark-border hover:border-pet/50 hover:shadow-xl hover:shadow-pet/10 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="map-pin" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pet transition-colors">GPS Tracking</h3>
+                    <p class="text-zinc-400 leading-relaxed">Real-time location monitoring to ensure your furry friend never gets lost.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group bg-dark-card p-8 rounded-2xl border border-dark-border hover:border-pet/50 hover:shadow-xl hover:shadow-pet/10 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="shopping-bag" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pet transition-colors">Marketplace</h3>
+                    <p class="text-zinc-400 leading-relaxed"> One-stop shop for premium food, toys, and accessories at the best prices. </p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="group bg-dark-card p-8 rounded-2xl border border-dark-border hover:border-pet/50 hover:shadow-xl hover:shadow-pet/10 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="stethoscope" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pet transition-colors">Veterinary Booking</h3>
+                    <p class="text-zinc-400 leading-relaxed">Instant appointments with top-rated vets for checkups and emergencies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 px-6 bg-zinc-900 overflow-hidden">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Happy Parent - Happy Pets</h2>
+                <p class="text-xl text-zinc-400">Join thousands of satisfied pet owners who trust PETHUB.</p>
+            </div>
+
+            <div class="relative h-[400px] flex items-center justify-center fade-in-section">
+                <div class="carousel-container w-full max-w-2xl">
+                    <div class="carousel-track" id="carousel-track">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide px-4">
+                            <div class="bg-dark-card rounded-3xl shadow-xl p-8 md:p-12 text-center border border-dark-border">
+                                <div class="w-16 h-16 bg-pet/10 rounded-full flex items-center justify-center mx-auto mb-8 text-pet">
+                                    <i data-lucide="quote" class="w-8 h-8 fill-current"></i>
+                                </div>
+                                <p class="text-xl md:text-2xl text-zinc-300 font-medium leading-relaxed mb-8">
+                                    "PETHUB made finding a reliable vet so easy. The GPS tracking feature gives me total peace of mind when we go to the park!"
+                                </p>
+                                <div class="flex items-center justify-center gap-4">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop" alt="Sarah" class="w-14 h-14 rounded-full object-cover border-2 border-pet">
+                                    <div class="text-left">
+                                        <div class="font-bold text-white text-lg">Pawani Swarnamali</div>
+                                        <div class="text-pet font-medium">Baba's Owner</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide px-4">
+                            <div class="bg-dark-card rounded-3xl shadow-xl p-8 md:p-12 text-center border border-dark-border">
+                                <div class="w-16 h-16 bg-pet/10 rounded-full flex items-center justify-center mx-auto mb-8 text-pet">
+                                    <i data-lucide="quote" class="w-8 h-8 fill-current"></i>
+                                </div>
+                                <p class="text-xl md:text-2xl text-zinc-300 font-medium leading-relaxed mb-8">
+                                    "The marketplace has everything my cats need. Fast delivery and great quality products. Highly recommended!"
+                                </p>
+                                <div class="flex items-center justify-center gap-4">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Mike" class="w-14 h-14 rounded-full object-cover border-2 border-pet">
+                                    <div class="text-left">
+                                        <div class="font-bold text-white text-lg">Mike Ross</div>
+                                        <div class="text-pet font-medium">Cat Enthusiast</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide px-4">
+                            <div class="bg-dark-card rounded-3xl shadow-xl p-8 md:p-12 text-center border border-dark-border">
+                                <div class="w-16 h-16 bg-pet/10 rounded-full flex items-center justify-center mx-auto mb-8 text-pet">
+                                    <i data-lucide="quote" class="w-8 h-8 fill-current"></i>
+                                </div>
+                                <p class="text-xl md:text-2xl text-zinc-300 font-medium leading-relaxed mb-8">
+                                    "As a pet sitter, this app helps me manage my bookings and communicate with owners efficiently. A game changer."
+                                </p>
+                                <div class="flex items-center justify-center gap-4">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Emily" class="w-14 h-14 rounded-full object-cover border-2 border-pet">
+                                    <div class="text-left">
+                                        <div class="font-bold text-white text-lg">Emily Chen</div>
+                                        <div class="text-pet font-medium">Pet Sitter</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <button onclick="moveSlide(-1)" class="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 p-3 bg-dark-card border border-dark-border rounded-full shadow-lg hover:bg-zinc-800 text-zinc-400 hover:text-pet transition-colors z-10">
+                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+                <button onclick="moveSlide(1)" class="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 p-3 bg-dark-card border border-dark-border rounded-full shadow-lg hover:bg-zinc-800 text-zinc-400 hover:text-pet transition-colors z-10">
+                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Dots -->
+            <div class="flex justify-center gap-2 mt-8" id="carousel-dots">
+                <button onclick="goToSlide(0)" class="w-3 h-3 rounded-full bg-pet transition-colors duration-300"></button>
+                <button onclick="goToSlide(1)" class="w-3 h-3 rounded-full bg-zinc-700 transition-colors duration-300"></button>
+                <button onclick="goToSlide(2)" class="w-3 h-3 rounded-full bg-zinc-700 transition-colors duration-300"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 px-6 border-t border-zinc-900">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="font-bold text-3xl mb-4 tracking-tight">
+                        <span class="text-pet">PET</span><span class="text-hub">HUB</span>
+                    </div>
+                    <p class="text-zinc-500 max-w-sm leading-relaxed">
+                        Complete Veterinary Care at Your Fingertips
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white">Services</h4>
+                    <ul class="space-y-2 text-zinc-500">
+                        <li><a href="#" class="hover:text-pet transition-colors">Pet Care</a></li>
+                        <li><a href="#" class="hover:text-pet transition-colors">GPS Tracking</a></li>
+                        <li><a href="#" class="hover:text-pet transition-colors">Marketplace</a></li>
+                        <li><a href="#" class="hover:text-pet transition-colors">Veterinary</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white">Company</h4>
+                    <ul class="space-y-2 text-zinc-500">
+                        <li><a href="#" class="hover:text-pet transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-pet transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-pet transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-pet transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-zinc-900">
+                <div class="text-zinc-600 text-sm">
+                    © 2025 PETHUB by Team FurTech Crew. All rights reserved.
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="#" class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-zinc-500 hover:text-white hover:bg-pet transition-all duration-300">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-zinc-500 hover:text-white hover:bg-pet transition-all duration-300">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-zinc-500 hover:text-white hover:bg-pet transition-all duration-300">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-zinc-500 hover:text-white hover:bg-pet transition-all duration-300">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('bg-dark-bg/90', 'backdrop-blur-md', 'shadow-sm');
+                header.classList.remove('bg-transparent');
+            } else {
+                header.classList.remove('bg-dark-bg/90', 'backdrop-blur-md', 'shadow-sm');
+                header.classList.add('bg-transparent');
+            }
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    
+                    // Trigger counter animation if it's the stats section
+                    if (entry.target.querySelector('#counter')) {
+                        animateCounter();
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Counter Animation
+        let counterAnimated = false;
+        function animateCounter() {
+            if (counterAnimated) return;
+            counterAnimated = true;
+            
+            const counter = document.getElementById('counter');
+            const target = 1200;
+            const duration = 2000;
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Ease out quart
+                const ease = 1 - Math.pow(1 - progress, 4);
+                
+                const current = Math.floor(start + (target - start) * ease);
+                counter.textContent = current.toLocaleString() + '+';
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const track = document.getElementById('carousel-track');
+        const dots = document.getElementById('carousel-dots').children;
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            Array.from(dots).forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.remove('bg-zinc-700');
+                    dot.classList.add('bg-pet');
+                } else {
+                    dot.classList.add('bg-zinc-700');
+                    dot.classList.remove('bg-pet');
+                }
+            });
+        }
+
+        function moveSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Auto advance carousel
+        setInterval(() => {
+            moveSlide(1);
+        }, 5000);
+
+    </script>
+</body>
+</html>
